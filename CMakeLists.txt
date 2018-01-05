@@ -7,9 +7,9 @@ message(STATUS "start running cmake...")
 #set(Boost_INCLUDE_DIR "boost_1_61_0")
 #set(Boost_LIBRARY_DIR "boost_1_61_0/libs/")
 
-set(BOOST_ROOT "boost_1_61_0")
+set(BOOST_ROOT "boost_1_58_0")
 
-find_package(Boost 1.61.0 COMPONENTS filesystem system thread REQUIRED)
+find_package(Boost 1.58.0 COMPONENTS filesystem system thread REQUIRED)
 
 if(Boost_FOUND)
 
@@ -25,7 +25,7 @@ endif()
 
 add_executable(Client
         src/connectionHandler.cpp include/connectionHandler.h
-
+        src/echoClient.cpp
         )
 
 if(Boost_FOUND)
