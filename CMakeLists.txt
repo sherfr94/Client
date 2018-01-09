@@ -26,7 +26,7 @@ endif()
 add_executable(Client
         src/connectionHandler.cpp include/connectionHandler.h
         src/echoClient.cpp
-        )
+        src/KeyboardThread.cpp src/KeyboardThread.h)
 
 if(Boost_FOUND)
 target_link_libraries(Client ${Boost_LIBRARIES})
