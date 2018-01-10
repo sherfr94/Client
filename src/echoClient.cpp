@@ -7,23 +7,29 @@
 
 #include <boost/thread.hpp>         // std::thread
 
+int status = 1;
 void foo(ConnectionHandler &ch)
 {
-    while(1){
-    const short bufsize = 1024;
-    char buf[bufsize];
-    std::cin.getline(buf, bufsize);
-    std::string line(buf);
-    //int len=line.length();
-    ch.sendLine(line);
+    while(status){
+
+            const short bufsize = 1024;
+            char buf[bufsize];
+            std::cin.getline(buf, bufsize);
+            std::string line(buf);
+            ch.sendLine(line);
     }
 }
 
 void boo(ConnectionHandler &ch){
-    while(1){
+    while(status){
+
         std::string answer;
         ch.getLine(answer);
         std::cout << answer;
+
+        if (answer == "ACK signout succeeded\n") {
+            status=0;
+        }
     }
 
 }
@@ -50,7 +56,6 @@ int main (int argc, char *argv[]) {
 
         boost::thread th1(foo, boost::ref(connectionHandler));
         boost::thread th2(boo, boost::ref(connectionHandler));
-        th1.join();
         th2.join();
 //        if (!connectionHandler.sendLine(line)) {
 //            std::cout << "Disconnected. Exiting...\n" << std::endl;
